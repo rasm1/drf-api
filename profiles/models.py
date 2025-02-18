@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-# Create your models here.
+from django.contrib.auth.models import User
+
 
 class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -10,7 +10,7 @@ class Profile(models.Model):
     name = models.CharField(max_length=255, blank=True)
     content = models.TextField(blank=True)
     image = models.ImageField(
-        upload_to='images/', default='../default_profile_t0cnvn'
+        upload_to='images/', default='../default_profile_qdjgyp'
     )
 
     class Meta:
@@ -20,9 +20,9 @@ class Profile(models.Model):
         return f"{self.owner}'s profile"
 
 
-
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(owner=instance)
 
-    post_save.connect(create_profile, sender=User)
+
+post_save.connect(create_profile, sender=User)
